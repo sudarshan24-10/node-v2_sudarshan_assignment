@@ -5,6 +5,8 @@ import { CalcDto } from './calc.dto';
 // overall used infix to postix conversion and then evaluated that postix expression to get the final result
 // Time Complexity : O(n)
 // Space Complexity : O(n);
+
+
 @Injectable()
 export class CalcService {
   calculateExpression(calcBody: CalcDto) {
@@ -35,6 +37,7 @@ export class CalcService {
     let i=0;
 
     while(i<expression.length) {
+
       if (expression[i]===' ') {
         i++;
         continue;
@@ -67,7 +70,7 @@ export class CalcService {
         i++;
       }
     }
-    return stack.pop();
+    return stack.pop();  // return the final calculated element in stack
   }
 
 
@@ -99,7 +102,7 @@ export class CalcService {
           postfix.push(stack.pop());
           postfix.push(' ');
         }
-        stack.pop(); // Remove '(' from stack
+        stack.pop(); 
         i++;
       }else{
         while(stack.length && this.hasPrecedence(expression[i])<=this.hasPrecedence(stack[stack.length - 1])){
@@ -116,11 +119,11 @@ export class CalcService {
       postfix.push(' ');
     }
 
-    return postfix.join('').trim();
+    return postfix.join('').trim();  // return the postfix expression 
   }
 
 
-  // validate if expression is valid or not
+  // validate if expression is valid or not validation function
   isValidExpression(expression:string):boolean{
     let stack: Array<string>=[];
     let previousChar:string ='';
@@ -152,8 +155,8 @@ export class CalcService {
   }
 
 
-  // precedence of char function
-  hasPrecedence(char:string):number {
+  // this function calculates the precedence of the operator for pop() or push()
+  hasPrecedence(char:string):number {  
     if(char==='*' || char==='/') {
       return 2;
     }
